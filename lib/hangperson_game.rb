@@ -50,6 +50,23 @@ class HangpersonGame
     end
   end
 
+  def word_with_guesses
+    result = ''
+    @word.chars do |w|
+      count = result.length
+      @guesses.chars do |g|
+        if w == g
+          result += w
+          break
+        end
+      end
+      if result.length == count
+        result += '-'
+      end
+    end
+    return result
+  end
+
   # You can test it by running $ bundle exec irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> HangpersonGame.get_random_word
   #  => "cooking"   <-- some random word
