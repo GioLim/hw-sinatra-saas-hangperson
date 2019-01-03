@@ -1,3 +1,4 @@
+
 class HangpersonGame
 
   # add the necessary class methods, attributes, etc. here
@@ -13,6 +14,40 @@ class HangpersonGame
     @word = word
     @guesses = ''
     @wrong_guesses = ''
+  end
+
+  def guess(letter)
+    if letter == nil
+      raise ArgumentError.new('nil')
+    end
+
+    if letter.length == 0
+      raise ArgumentError.new('empty')
+    end
+    
+    if letter =~ /^((?![a-zA-Z]).)*$/
+      raise ArgumentError.new('not a letter')
+    end
+ 
+    @guesses.chars do |ltr|
+      if ltr.downcase == letter.downcase
+        return false
+      end
+    end
+   
+    @wrong_guesses.chars do |ltr|
+      if ltr.downcase == letter.downcase
+        return false
+      end
+    end
+
+    if @word.downcase.include? letter.downcase
+      @guesses += letter.downcase
+      return true
+    else
+      @wrong_guesses += letter.downcase
+      return true
+    end
   end
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
